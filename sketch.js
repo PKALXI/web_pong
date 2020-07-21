@@ -43,11 +43,11 @@ function draw() {
   }
   
   //RIGHT PADDLE MOVEMENT
-  if(keyIsDown(UP_ARROW)){
+  if(keyIsDown(75)){
       rightPaddle.moveUp();
   }
   
-  if(keyIsDown(DOWN_ARROW)){
+  if(keyIsDown(77)){
       rightPaddle.moveDown();
   }
 }
