@@ -1,3 +1,5 @@
+//import { play, loadModel } from './ai.js';
+
 var leftPaddle;
 var rightPaddle;
 var ball;
@@ -7,9 +9,32 @@ var fps = 50;
 var leftScore = 0;
 var rightScore = 0;
 
+var myModel;
+
+
+async function loadMyModel(){
+    console.log(true);
+    myModel = await tf.models.modelFromJSON('model.json');
+    console.log(true);
+} 
+
+function play(ball, paddle){
+    var current_location = paddle.position.y;
+
+    var ballX = ball.position.x;
+    var ballY = ball.position.y;
+
+    var data = [ballX, ballY, ball.vx, ball.vy];
+
+    const prediction = myModel.predict(data);
+    console.log(prediction);
+}
+
 function setup() {
+  loadMyModel();
+
   frameRate(fps);
-  
+
   createCanvas(800, 600);
   leftPaddle = new Paddle();
   rightPaddle = new Paddle();
@@ -26,6 +51,8 @@ function draw() {
   
   ball.update();
   
+  //play(ball, leftPaddle);
+
   var t = 'Player A: ' + leftScore + ' Player B: ' + rightScore;
   
   fill(255);
